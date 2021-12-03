@@ -1,0 +1,21 @@
+a = input()
+save = ['o']
+k = 0
+for i in range(0, len(a), 1):
+    if (stro[i] == '(' or a[i] == '[' or a[i] == '{'):
+        save.append(stro[i])
+    else :
+        lel = save[-1]
+        if ((a[i] == ')' and lel =='(') or (a[i] == ']' and lel =='[') or (a[i] == '}' and lel =='{')):
+            save.pop()
+        else:
+            if (a[i] == ')'  or a[i] == ']'  or a[i] == '}'):
+                 k = -12
+            
+
+            
+if ( save[-1] == 'o' and k!=-12 ): 
+    print('correct')
+else:
+    print('incorrect')
+  
