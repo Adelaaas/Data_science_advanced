@@ -1,0 +1,180 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Дз2Маханенко.ipynb",
+      "provenance": [],
+      "collapsed_sections": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cfquVvbaRSAN"
+      },
+      "source": [
+        "def TF(text):\n",
+        "\n",
+        "  list_text = []\n",
+        "  dictin = text.split()\n",
+        "  amount = len(dictin)\n",
+        "  list_sen = text.split('.')\n",
+        "  save = []\n",
+        "  for i in range(0, len(dictin), 1):\n",
+        "    list_text.append(dictin[i].lower().replace('.', ''))\n",
+        "\n",
+        "  for i in range(0, len(list_text), 1):\n",
+        "    if list_text[i] not in  save:\n",
+        "      print(list_text[i] + \" - \", list_text.count(list_text[i])/amount)\n",
+        "    save.append(list_text[i])"
+      ],
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "11IOM7MsTE_A",
+        "outputId": "420c1a78-1a4f-4a08-c4ad-d0587032d762"
+      },
+      "source": [
+        "text = 'Одна ошибка и ты ошибся.'\n",
+        "TF(text)"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "одна -  0.2\n",
+            "ошибка -  0.2\n",
+            "и -  0.2\n",
+            "ты -  0.2\n",
+            "ошибся -  0.2\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4gJF--YXTUm1"
+      },
+      "source": [
+        "import math\n",
+        "def IDF(text):\n",
+        "  amount_sentence = text.count('.')\n",
+        "  dictin = text.split()\n",
+        "  list_text = text.split('.')\n",
+        "  k = 0\n",
+        "  save = []\n",
+        "\n",
+        "  for i in range(0, len(dictin), 1):\n",
+        "    for j in range(0, len(list_text), 1):\n",
+        "      if dictin[i] not in  save:\n",
+        "        if dictin[i] in list_text[j]:\n",
+        "         k = k + 1\n",
+        "    save.append(dictin[i])\n",
+        "    print(dictin[i], math.log10(k/amount_sentence))"
+      ],
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "njj1lhglTYxs",
+        "outputId": "0ba1af14-d850-4eed-abcc-4dc85546a1b3"
+      },
+      "source": [
+        "text = 'Одна ошибка и ты ошибся.'\n",
+        "IDF(text)"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Одна 0.0\n",
+            "ошибка 0.3010299956639812\n",
+            "и 0.47712125471966244\n",
+            "ты 0.6020599913279624\n",
+            "ошибся. 0.6020599913279624\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "VvTrpmp9TecT"
+      },
+      "source": [
+        "def ngam(words, amount):\n",
+        "  ngramma = []  \n",
+        "  for i in range(0, len(words.split())- amount + 1, 1):\n",
+        "    ngramma.append(words.split()[i:i + amount])\n",
+        "  print(ngramma)"
+      ],
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "dAdIwenTThwC"
+      },
+      "source": [
+        "def ngram(words, amount):\n",
+        "  ngramma = [] \n",
+        "  for i in range(0, len(words.split()) - amount+1, 1):\n",
+        "    for j in range(0, amount, 1):\n",
+        "      ngramma.append(words.split()[i+j] )\n",
+        "    ngramma.append('-')  \n",
+        "  print(ngramma)"
+      ],
+      "execution_count": 8,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mPvteGtrTkXo",
+        "outputId": "2618315e-4725-42c5-b8b9-2410dde4946b"
+      },
+      "source": [
+        "ngram('ошибка и ты', 3)"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['ошибка', 'и', 'ты', '-']\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
